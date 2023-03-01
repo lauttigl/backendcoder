@@ -25,27 +25,12 @@ const env = async ( ) => {
 
     let consultaId = await manager.getProductById(2)
     console.log(consultaId)
-    //CODIGO MIO
-    // const addedProduct = await manager.addProduct(product);
-    // console.log("Producto agregado:", addedProduct);
-  
-    // // Consultar todos los productos
-    // const allProducts = await manager.getProducts();
-    // console.log("Todos los productos:", allProducts);
-  
-    // // Consultar un producto por id
-    // const productId = 1;
-    // const productById = await manager.getProductById(productId);
-    // console.log("Producto por id:", productById);
-  
-    // // Actualizar un producto
-    // const productToUpdate = { ...productById, title: "nueva tele" };
-    // const updatedProduct = await manager.updateProduct(productId, productToUpdate);
-    // console.log("Producto actualizado:", updatedProduct);
-  
-    // // Eliminar un producto
-    // const deletedProduct = await manager.deleteProduct(productId);
-    // console.log("Producto eliminado:", deletedProduct);
+
+    let productosActualizados = await manager.updateProduct(2, {title:"Nuevo Producto"})
+    console.log(productosActualizados)
+
+    let productosEliminados = await manager.deleteProduct(6);
+  console.log(productosEliminados);
 }
 
 env()

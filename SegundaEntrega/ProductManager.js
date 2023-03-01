@@ -56,78 +56,35 @@ export default class ProductManager {
                 }
             }
         }
+        deleteProduct = async (id) => {
+            try {
+              const products = await this.consultProduct();
+              const updatedProducts = products.filter((product) => product.id !== id)
+              await fs.promises.writeFile(this.path, JSON.stringify(updatedProducts, null, "\t"))
+              console.log(`Product with id ${id} deleted successfully`)
+              return updatedProducts
+            } catch (error) {
+              console.log(`Error deleting product with id ${id}: ${error}`)
+            }
+          };
+
+          updateProduct = async (id, updatedProduct) => {
+            try {
+              const products = await this.consultProduct();
+              const index = products.findIndex((product) => product.id === id)
+              if (index === -1) {
+                console.log(`Product with id ${id} not found`)
+                return;
+              }
+              products[index] = { ...products[index], ...updatedProduct };
+              await fs.promises.writeFile(this.path, JSON.stringify(products, null, "\t"))
+              console.log(`Product with id ${id} updated successfully`)
+              return products;
+            } catch (error) {
+              console.log(`Error updating product with id ${id}: ${error}`)
+            }
+          }
 
 
         
     }
-
-
-    //CODIGO MIO
-    //     addProduct = async (title,description,price,stock,thumbnail,code) => {
-    //         const products = await this.getProducts()
-    //         if (products.length === 0) {
-    //             product.id = 1;
-    //           } else {
-    //         product.id = products[products.length - 1].id + 1;
-    //           }
-    //             products.push(product)
-    //         await fs.promises.writeFile(
-    //             this.path,
-    //             JSON.stringify(products, null, "\t")
-    //         )
-    //         return product
-    //     }
-    //     getProducts = async () =>{
-    //      if(fs.existsSync(this.path)) {
-    //         const data= await fs.promises.readFile(this.path, 'utf-8')
-    //         const result = JSON.parse(data)
-    //         return result
-    //      } else {
-    //         return []
-    //      }
-    // }
-    //     getProductsById = async (id) => {
-    //         try{
-    //             const products = await this.getProducts()
-    //             return products.find((product) => product.id ===id)
-    //         } catch (error){
-    //             console.error(error)
-    //             return null
-    //         }
-    //     }
-    //     updateProduct = async (id, updatedProduct) => {
-    //         try{
-    //         const products = await this.getProducts()
-    //         const productIndex = products.findIndex((product) => product.id === id)
-    //         if (productIndex === -1){
-    //             console.log(`Product with id ${id} not found`)
-    //         }
-    //         updatedProduct.id= id
-    //         products[productIndex]= updatedProduct
-    //         await this.saveProducts(products)
-    //     } catch (error){
-    //         console.error(error)
-    //     }
-    // }
-    //     deleteProduct = async (id) => {
-    //         try {
-    //             const products = await this.getProducts();
-    //             const updatedProducts = products.filter((product) => product.id !== id);
-    //             await this.saveProducts(updatedProducts);
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //         }
-            
-    //         saveProducts= async (products)  => {
-    //             try {
-    //                 const data = JSON.stringify(products, null, 2);
-    //                 await fs.promises.writeFile(this.path, data);
-    //             } catch (error) {
-    //                 console.error(error);
-    //             }
-    //             }
-            
-            
-
-    // }
