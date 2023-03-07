@@ -29,8 +29,8 @@ const env = async ( ) => {
     let productosActualizados = await manager.updateProduct(2, {title:"Nuevo Producto"})
     console.log(productosActualizados)
 
-    let productosEliminados = await manager.deleteProduct(6);
-  console.log(productosEliminados);
+    let productosEliminados = await manager.deleteProduct(6)
+  console.log(productosEliminados)
 }
 
 env()
